@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 
 public class Traverse {
   public static void main(String[] args) {
@@ -28,6 +29,52 @@ public class Traverse {
     v45.neighbors = new ArrayList<>(List.of(v23));
     v23.neighbors = new ArrayList<>(List.of());
     v67.neighbors = new ArrayList<>(List.of(v91));
+
+    Set<Vertex<?>> visited = new HashSet<>();   
+
+    printVertices(v7);
+  }
+
+  public static void printVertices(Vertex<?> current){
+    Set<Vertex<?>> visited = new HashSet<>();
+    printVertices(current, visited);
+
+  }
+
+  public static void printVertices(Vertex<?> current, Set<Vertex<?>> visited){
+
+    if(current == null) return;
+    visited.add(current);
+    if (visited.contains(current));
+    System.out.println(current.data);
+    //recurse over all children 
+    for (Vertex<?> neighbor : current.neighbors){
+      printVertices(neighbor, visited);
+    
+    }
+
+
+  }
+
+  public static int sum(Vertex<Integer> current){
+    Set<Vertex<Integer>> visited = new HashSet<>();
+
+    return sum(current, visited);
+  }
+  public static int sum(Vertex<Integer> current, Set<Vertex<Integer>> visited){
+    if(current == null || visited.contains(current)) return 0;
+
+    int total = 0;
+    total += current.data;
+
+    visited.add(current);
+    for(var neighbor : current.neighbors){
+
+      total += sum(neighbor, visited);
+      
+    }
+    return total;
+
   }
 
 }
